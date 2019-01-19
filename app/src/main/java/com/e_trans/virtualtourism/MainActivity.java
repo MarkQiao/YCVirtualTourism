@@ -1,65 +1,217 @@
 package com.e_trans.virtualtourism;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MenuItem;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.TabHost;
+import android.widget.Toast;
 
-import com.e_trans.virtualtourism.Base.ViewPagerAdapter;
-import com.e_trans.virtualtourism.tablayout.entity.TabEntity;
-import com.e_trans.virtualtourism.tablayout.listener.OnTabClickListener;
-import com.e_trans.virtualtourism.tablayout.ui.TabLayout;
+import com.dueeeke.videoplayer.player.VideoViewManager;
+import com.e_trans.virtualtourism.Base.BaseActivity;
 import com.e_trans.virtualtourism.ui.AerialVideoFragment;
+import com.e_trans.virtualtourism.utils.StatusBarCompat;
+import com.e_trans.virtualtourism.utils.statusbar.StatusBarFontHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+    private TabHost mTabHost;
+    private TabManager mTabManager;
+    private LayoutInflater inflater;
 
-    private String[] mTitles = {"景点", "航拍", "线路"};//, "美文"
-    private int[] mIcons = {R.drawable.ic_jd, R.drawable.ic_video, R.drawable.ic_xls};//, R.drawable.ic_mw
-    List<Fragment> frags = new ArrayList<Fragment>();
-    List<TabEntity> entitys = new ArrayList<TabEntity>();
+    private final String TAB1 = "MAIN";
+    private final String TAB2 = "VIDEO";
+    private final String TAB3 = "FOLLOWING";
+    private final String TAB4 = "MINE";
+    @Override
+    protected int layoutRes() {
+        return R.layout.activity_main;
+    }
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    @Override
+    protected void initView() {
+        inflater = LayoutInflater.from(this);
+
+        mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+        mTabHost.setup();
+        mTabHost.getTabWidget().setDividerDrawable(null); // 去除分割线
+
+        mTabManager = new TabManager(this, mTabHost, R.id.realtabcontent);
+
+        mTabManager.addTab(mTabHost.newTabSpec(TAB1).setIndicator(createTabIndicatorView(R.layout.tab_main)), AerialVideoFragment.class, null);
+        mTabManager.addTab(mTabHost.newTabSpec(TAB2).setIndicator(createTabIndicatorView(R.layout.tab_following)), AerialVideoFragment.class, null);
+        mTabManager.addTab(mTabHost.newTabSpec(TAB3).setIndicator(createTabIndicatorView(R.layout.tab_video)), AerialVideoFragment.class, null);
+        mTabManager.addTab(mTabHost.newTabSpec(TAB4).setIndicator(createTabIndicatorView(R.layout.tab_mine)), AerialVideoFragment.class, null);
+    }
+    private View createTabIndicatorView(int layoutResource) {
+        return inflater.inflate(layoutResource, null);
+    }
+
+
+    public static class TabManager implements TabHost.OnTabChangeListener {
+        private final FragmentActivity mActivity;
+        private final TabHost mTabHost;
+        private final int mContainerId;
+        private final HashMap<String, TabInfo> mTabs = new HashMap<String, TabInfo>();
+        TabInfo mLastTab;
+
+        static final class TabInfo {
+            private final String tag;
+            private final Class<?> clss;
+            private final Bundle args;
+            private Fragment fragment;
+
+            TabInfo(String _tag, Class<?> _class, Bundle _args) {
+                tag = _tag;
+                clss = _class;
+                args = _args;
+            }
+        }
+
+        static class DummyTabFactory implements TabHost.TabContentFactory {
+            private final Context mContext;
+
+            public DummyTabFactory(Context context) {
+                mContext = context;
+            }
+
+            @Override
+            public View createTabContent(String tag) {
+                View v = new View(mContext);
+                v.setMinimumWidth(0);
+                v.setMinimumHeight(0);
+                return v;
+            }
+        }
+
+        public TabManager(FragmentActivity activity, TabHost tabHost,
+                          int containerId) {
+            mActivity = activity;
+            mTabHost = tabHost;
+            mContainerId = containerId;
+            mTabHost.setOnTabChangedListener(this);
+        }
+
+        public void addTab(TabHost.TabSpec tabSpec, Class<?> clss, Bundle args) {
+            tabSpec.setContent(new DummyTabFactory(mActivity));
+            String tag = tabSpec.getTag();
+
+            TabInfo info = new TabInfo(tag, clss, args);
+
+            // Check to see if we already have a fragment for this tab, probably
+            // from a previously saved state. If so, deactivate it, because our
+            // initial state is that a tab isn't shown.
+            info.fragment = mActivity.getSupportFragmentManager()
+                    .findFragmentByTag(tag);
+            if (info.fragment != null && !info.fragment.isDetached()) {
+                FragmentTransaction ft = mActivity.getSupportFragmentManager()
+                        .beginTransaction();
+                ft.hide(info.fragment);
+                ft.commitAllowingStateLoss();
+            }
+
+            mTabs.put(tag, info);
+            mTabHost.addTab(tabSpec);
+        }
+
+        @Override
+        public void onTabChanged(String tabId) {
+            TabInfo newTab = mTabs.get(tabId);
+            if (mLastTab != newTab) {
+                FragmentTransaction ft = mActivity.getSupportFragmentManager()
+                        .beginTransaction();
+                if (mLastTab != null) {
+                    if (mLastTab.fragment != null) {
+                        ft.hide(mLastTab.fragment);
+                    }
+                }
+                if (newTab != null) {
+                    if (newTab.fragment == null) {
+                        newTab.fragment = Fragment.instantiate(mActivity,
+                                newTab.clss.getName(), newTab.args);
+                        ft.add(mContainerId, newTab.fragment, newTab.tag);
+                    } else {
+                        ft.show(newTab.fragment);
+                    }
+                }
+
+                mLastTab = newTab;
+                ft.commitAllowingStateLoss();
+                mActivity.getSupportFragmentManager()
+                        .executePendingTransactions();
+            }
+        }
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+    public void onPause() {
+        super.onPause();
+        if (VideoViewManager.instance().getCurrentVideoPlayer() != null) {
+            VideoViewManager.instance().getCurrentVideoPlayer().pause();
+        }
+    }
 
-        for (int i = 0; i < mTitles.length; i++) {
-            frags.add(AerialVideoFragment.newInstance(mTitles[i]));
-            entitys.add(new TabEntity(mIcons[i], mTitles[i]));
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mTabHost.getCurrentTab() == 0 || mTabHost.getCurrentTab() == 2) {
+            return;
         }
 
-        tabLayout.setTabData(entitys);
-        tabLayout.setOnTabClickListener(new OnTabClickListener() {
-            @Override
-            public void OnTabClick(View view, int position) {
+        if (VideoViewManager.instance().getCurrentVideoPlayer() != null) {
+            VideoViewManager.instance().getCurrentVideoPlayer().resume();
+        }
+    }
 
-                viewPager.setCurrentItem(position);
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VideoViewManager.instance().releaseVideoPlayer();
+    }
+
+
+    private long mExitTime;
+
+    @Override
+    public void onBackPressed() {
+//        boolean iscanback = VideoHelper.get().isCanBack(this);
+//        if (!iscanback) {
+//            return;
+//        }
+
+        if (!VideoViewManager.instance().onBackPressed()) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                android.os.Process.killProcess(android.os.Process.myPid());
             }
-        });
+        }
 
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), frags));
-        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                tabLayout.scrollToTab(position, positionOffset);
-            }
-        });
 
+    }
+
+    public TabHost getTabHost() {
+        return mTabHost;
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        } else {
+            StatusBarCompat.setStatusBarColor(this, 0xfffffff);
+            StatusBarFontHelper.setStatusBarMode(this, true);
+        }
+        super.onConfigurationChanged(newConfig);
     }
 
 }
