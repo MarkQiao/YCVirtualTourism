@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.Scroller;
 import android.widget.TextView;
 
+import com.e_trans.virtualtourism.R;
 import com.e_trans.virtualtourism.recyclerview.indicator.PtrIndicator;
 import com.e_trans.virtualtourism.recyclerview.loadmore.DefaultLoadMoreViewFooter;
 import com.e_trans.virtualtourism.recyclerview.loadmore.GridViewHandler;

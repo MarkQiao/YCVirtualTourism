@@ -171,9 +171,9 @@ public class VerticalVideoActivity extends BaseActivity {
             mTvPlayCount = (TextImageView) view.findViewById(R.id.tv_play_count);
             mTvVideoTitle = view.findViewById(R.id.tv_video_title);
 
-            Glide.with(WQApplication.getInstance()).load(item.getCoverImgUrl()).dontAnimate().into(mCover);
+            Glide.with(getApplication().getApplicationContext()).load(item.getCoverImgUrl()).dontAnimate().into(mCover);
 
-            GlideUtils.loadImage(WQApplication.getInstance(), item.getAuthorImgUrl(), mIvUserAvatar, null);
+            GlideUtils.loadImage(getApplication().getApplicationContext(), item.getAuthorImgUrl(), mIvUserAvatar, null);
 
             mTvVideoTitle.setText(item.getTitle());
 
@@ -205,7 +205,7 @@ public class VerticalVideoActivity extends BaseActivity {
 
 
                 if (mCurrentItem == mList.size() - 1) {
-                    ToastUtil.showToast("加载中，请稍后");
+                    ToastUtil.showToast(getApplicationContext(),"加载中，请稍后");
 //                    getDouyinListData();
                 }
 

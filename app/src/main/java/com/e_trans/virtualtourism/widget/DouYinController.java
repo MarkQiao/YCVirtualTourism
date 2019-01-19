@@ -94,7 +94,7 @@ public class DouYinController extends BaseVideoController {
             case IjkVideoView.STATE_ERROR:
                 thumb.setVisibility(VISIBLE);
                 mIvPlay.setVisibility(View.GONE);
-                ToastUtil.showToast("播放错误");
+                ToastUtil.showToast(getContext(),"播放错误");
                 break;
         }
     }

@@ -3,14 +3,13 @@ package com.e_trans.virtualtourism.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
-import android.widget.TextView;
 
 import com.e_trans.virtualtourism.Base.BaseFragment;
 import com.e_trans.virtualtourism.R;
 import com.e_trans.virtualtourism.VerticalVideoActivity;
-import com.e_trans.virtualtourism.WQApplication;
 import com.e_trans.virtualtourism.bean.LevideoData;
 import com.e_trans.virtualtourism.recyclerview.PtrFrameLayout;
 import com.e_trans.virtualtourism.recyclerview.PtrRecyclerViewUIComponent;
@@ -48,7 +47,7 @@ public class MainPageDouYinFragment extends BaseFragment implements CygBaseRecyc
     @BindView(R.id.load_frameLayout)
     LoadFrameLayout loadFrameLayout;
 
-    TextView mRetry;
+//    TextView mRetry;
 
     private MainAdapter adapter;
 
@@ -74,7 +73,7 @@ public class MainPageDouYinFragment extends BaseFragment implements CygBaseRecyc
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -87,7 +86,7 @@ public class MainPageDouYinFragment extends BaseFragment implements CygBaseRecyc
     @Override
     protected void onViewReallyCreated(View view) {
         mUnbinder = ButterKnife.bind(this, view);
-        mRetry = loadFrameLayout.findViewById(R.id.tv_retry);
+//        mRetry = loadFrameLayout.findViewById(R.id.tv_retry);
 /*
         mRetry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +162,7 @@ public class MainPageDouYinFragment extends BaseFragment implements CygBaseRecyc
     private void initHeader() {
         header = new MyCustomHeader(getActivity());
         header.setLayoutParams(new PtrFrameLayout.LayoutParams(PtrFrameLayout.LayoutParams.MATCH_PARENT, PtrFrameLayout.LayoutParams.WRAP_CONTENT));
-        header.setPadding(0, DensityUtil.dip2px(WQApplication.getInstance(), 15), 0, DensityUtil.dip2px(WQApplication.getInstance(), 10));
+        header.setPadding(0, DensityUtil.dip2px(getActivity().getApplicationContext(), 15), 0, DensityUtil.dip2px(getActivity().getApplicationContext(), 10));
 
         header.setUp(ptrRecyclerViewUIComponent);
         header.getTvtitle().setText("发现20条精彩视频");

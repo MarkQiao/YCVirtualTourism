@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
+
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.DrawableTypeRequest;
@@ -19,7 +20,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.e_trans.virtualtourism.WQApplication;
 import com.e_trans.virtualtourism.view.CircleImageView;
 import com.e_trans.virtualtourism.view.CircleTransform;
 
@@ -321,11 +321,12 @@ public abstract class GlideUtils {
      * @param imageView 要加载到的ImageView
      */
     public static Target<GlideDrawable> loadImageFormVideo(@NonNull String url, @NonNull ImageView imageView) {
-        return getDrawableTypeRequest(imageView.getContext(), url)
-                .override(DensityUtil.dip2px(WQApplication.getInstance(), 150), DensityUtil.dip2px(WQApplication.getInstance(), 150))
+       /* return getDrawableTypeRequest(imageView.getContext(), url)
+                .override(DensityUtil.dip2px(get, 150), DensityUtil.dip2px(WQApplication.getInstance(), 150))
                 //.placeholder(android.R.drawable.picture_frame)   //占位图
                 .dontAnimate()
-                .into(imageView);
+                .into(imageView);*/
+       return null;
     }
 
 

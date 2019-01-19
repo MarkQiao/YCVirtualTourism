@@ -20,7 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jack.mc.cyg.cygptr.R;
+import com.e_trans.virtualtourism.R;
 
 
 /**

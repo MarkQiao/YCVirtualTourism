@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.dueeeke.videoplayer.player.VideoViewManager;
 import com.e_trans.virtualtourism.Base.BaseActivity;
 import com.e_trans.virtualtourism.ui.AerialVideoFragment;
+import com.e_trans.virtualtourism.ui.MainPageDouYinFragment;
 import com.e_trans.virtualtourism.utils.StatusBarCompat;
 import com.e_trans.virtualtourism.utils.statusbar.StatusBarFontHelper;
 

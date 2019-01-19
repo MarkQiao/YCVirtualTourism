@@ -11,6 +11,9 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+
+import com.e_trans.virtualtourism.R;
 import com.e_trans.virtualtourism.recyclerview.indicator.PtrIndicator;
 
 import java.text.SimpleDateFormat;

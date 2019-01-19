@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.e_trans.virtualtourism.R;
-import com.e_trans.virtualtourism.WQApplication;
 import com.e_trans.virtualtourism.bean.LevideoData;
 import com.e_trans.virtualtourism.utils.DensityUtil;
 import com.e_trans.virtualtourism.utils.Utils;
@@ -48,7 +46,7 @@ public class MainViewHolder extends CygBaseRecyclerViewHolder<LevideoData> {
     protected void onItemDataUpdated(@Nullable LevideoData data) {
         if (data != null) {
             ViewGroup.LayoutParams params = mNearbyImg.getLayoutParams();
-            params.width = (WindowUtil.getScreenWidth(WQApplication.getInstance()) - DensityUtil.dip2px(WQApplication.getInstance(), 2)) / 2;
+            params.width = (WindowUtil.getScreenWidth(getContext().getApplicationContext()) - DensityUtil.dip2px(getContext().getApplicationContext(), 2)) / 2;
             params.height = (params.width) * 8 / 5;
             mNearbyImg.setLayoutParams(params);
 

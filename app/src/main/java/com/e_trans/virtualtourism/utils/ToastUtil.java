@@ -1,8 +1,7 @@
 package com.e_trans.virtualtourism.utils;
 
+import android.content.Context;
 import android.widget.Toast;
-
-import com.e_trans.virtualtourism.WQApplication;
 
 
 /**
@@ -17,9 +16,9 @@ public class ToastUtil {
     private static long oneTime = 0;
     private static long twoTime = 0;
 
-    public static void showToast(String s) {
+    public static void showToast(Context mContext,String s) {
         if (toast == null) {
-            toast = Toast.makeText(WQApplication.getInstance(), s, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(mContext, s, Toast.LENGTH_SHORT);
             toast.show();
             oneTime = System.currentTimeMillis();
         } else {
@@ -38,7 +37,7 @@ public class ToastUtil {
     }
 
 
-    public static void showToast(int resId) {
-        showToast(WQApplication.getInstance().getString(resId));
+    public static void showToast(Context mContext,int resId) {
+        showToast(mContext,resId+"");
     }
 }
