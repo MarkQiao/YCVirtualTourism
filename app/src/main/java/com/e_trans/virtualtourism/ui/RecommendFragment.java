@@ -15,14 +15,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 
-public class AerialVideoFragment extends Fragment {
+public class RecommendFragment extends Fragment {
     public static final String BUNDLE_TITLE = "title";
 
-    public static AerialVideoFragment newInstance(String title)
+    public static RecommendFragment newInstance(String title)
     {
         Bundle bundle = new Bundle();
         bundle.putString(BUNDLE_TITLE, title);
-        AerialVideoFragment fragment = new AerialVideoFragment();
+        RecommendFragment fragment = new RecommendFragment();
         fragment.setArguments(bundle);
         return fragment;
     }

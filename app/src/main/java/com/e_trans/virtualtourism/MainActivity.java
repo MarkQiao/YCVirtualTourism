@@ -14,9 +14,7 @@ import android.widget.Toast;
 import com.dueeeke.videoplayer.player.VideoViewManager;
 import com.e_trans.virtualtourism.Base.BaseActivity;
 import com.e_trans.virtualtourism.ui.AerialVideoFragment;
-import com.e_trans.virtualtourism.ui.MainPageDouYinFragment;
-import com.e_trans.virtualtourism.utils.StatusBarCompat;
-import com.e_trans.virtualtourism.utils.statusbar.StatusBarFontHelper;
+import com.e_trans.virtualtourism.ui.LawEnforcementListFragment;
 
 import java.util.HashMap;
 
@@ -44,8 +42,9 @@ public class MainActivity extends BaseActivity {
 
         mTabManager = new TabManager(this, mTabHost, R.id.realtabcontent);
 
-        mTabManager.addTab(mTabHost.newTabSpec(TAB1).setIndicator(createTabIndicatorView(R.layout.tab_main)), AerialVideoFragment.class, null);
-        mTabManager.addTab(mTabHost.newTabSpec(TAB2).setIndicator(createTabIndicatorView(R.layout.tab_following)), AerialVideoFragment.class, null);
+
+        mTabManager.addTab(mTabHost.newTabSpec(TAB1).setIndicator(createTabIndicatorView(R.layout.tab_following)), AerialVideoFragment.class, null);
+        mTabManager.addTab(mTabHost.newTabSpec(TAB2).setIndicator(createTabIndicatorView(R.layout.tab_main)), LawEnforcementListFragment.class, null);
         mTabManager.addTab(mTabHost.newTabSpec(TAB3).setIndicator(createTabIndicatorView(R.layout.tab_video)), AerialVideoFragment.class, null);
         mTabManager.addTab(mTabHost.newTabSpec(TAB4).setIndicator(createTabIndicatorView(R.layout.tab_mine)), AerialVideoFragment.class, null);
     }
@@ -103,10 +102,6 @@ public class MainActivity extends BaseActivity {
             String tag = tabSpec.getTag();
 
             TabInfo info = new TabInfo(tag, clss, args);
-
-            // Check to see if we already have a fragment for this tab, probably
-            // from a previously saved state. If so, deactivate it, because our
-            // initial state is that a tab isn't shown.
             info.fragment = mActivity.getSupportFragmentManager()
                     .findFragmentByTag(tag);
             if (info.fragment != null && !info.fragment.isDetached()) {
@@ -182,11 +177,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        boolean iscanback = VideoHelper.get().isCanBack(this);
-//        if (!iscanback) {
-//            return;
-//        }
-
         if (!VideoViewManager.instance().onBackPressed()) {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
@@ -196,8 +186,6 @@ public class MainActivity extends BaseActivity {
                 android.os.Process.killProcess(android.os.Process.myPid());
             }
         }
-
-
     }
 
     public TabHost getTabHost() {
@@ -209,8 +197,6 @@ public class MainActivity extends BaseActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
         } else {
-            StatusBarCompat.setStatusBarColor(this, 0xfffffff);
-            StatusBarFontHelper.setStatusBarMode(this, true);
         }
         super.onConfigurationChanged(newConfig);
     }

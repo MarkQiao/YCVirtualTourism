@@ -331,4 +331,10 @@
     <declare-styleable name="PtrClassicHeader">
         <attr name="ptr_rotate_ani_time" format="integer" />
     </declare-styleable>
+    <declare-styleable name="XRefreshView">
+        <attr name="isHeightMatchParent" format="boolean" />
+        <attr name="isWidthMatchParent" format="boolean" />
+        <attr name="autoRefresh" format="boolean" />
+        <attr name="autoLoadMore" format="boolean" />
+    </declare-styleable>
 </resources>
