@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:text="注册" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="83dp"
+                    android:layout_height="95dp"
+                    android:src="@mipmap/ic_launchers" />
+
+                <RelativeLayout
+                    android:layout_width="276dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="44dp"
+                    android:background="@drawable/shape_stoken"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp">
+
+                    <ImageView
+                        android:id="@+id/iv_login_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="3dp"
+                        android:contentDescription="@string/login_select_user"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/user_name" />
+
+                    <EditText
+                        android:id="@+id/et_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/iv_login_user"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_user"
+                        android:inputType=""
+                        android:paddingEnd="3dp"
+                        android:paddingStart="3dp"
+                        android:textColor="@color/login_color_font"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_select_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/login_select_user"
+                        android:src="@drawable/search_close"
+                        android:visibility="invisible"
+                       />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="276dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="17dp"
+                    android:background="@drawable/shape_stoken"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp">
+
+                    <ImageView
+                        android:id="@+id/iv_login_pass_word"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="3dp"
+                        android:contentDescription="@string/login_select_user"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/pass_word" />
+
+
+                    <EditText
+                        android:id="@+id/et_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/iv_login_pass_word"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword"
+                        android:paddingEnd="3dp"
+                        android:paddingStart="3dp"
+                        android:textColor="@color/login_color_font"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_remove_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/login_cancel"
+                        android:src="@drawable/login_selector_password" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="276dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="17dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="150dp"
+                        android:layout_height="37dp"
+                        android:background="@drawable/shape_stoken"
+                        >
+
+                        <EditText
+                            android:id="@+id/realcode"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:background="@android:color/transparent"
+                            android:hint="请输入验证码"
+                            android:maxLength="4"
+                            android:paddingEnd="3dp"
+                            android:paddingStart="3dp"
+                            android:textColor="@color/login_color_font"
+                            android:textSize="15sp" />
+
+                    </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/iv_code"
+                        android:layout_width="100dp"
+                        android:layout_height="37dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="12dp"
+                      />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="10dp" />
+
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="276dp"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_button"
+                    android:gravity="center"
+                    android:text="注册"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+</LinearLayout>

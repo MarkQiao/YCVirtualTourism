@@ -11,10 +11,14 @@ import android.view.View;
 import android.widget.TabHost;
 import android.widget.Toast;
 
-import com.dueeeke.videoplayer.player.VideoViewManager;
 import com.e_trans.virtualtourism.Base.BaseActivity;
 import com.e_trans.virtualtourism.ui.AerialVideoFragment;
-import com.e_trans.virtualtourism.ui.LawEnforcementListFragment;
+import com.e_trans.virtualtourism.ui.MineFragment;
+import com.e_trans.virtualtourism.ui.RecommendFragment;
+import com.e_trans.virtualtourism.ui.fragment.SmoothMoveFragment;
+import com.e_trans.virtualtourism.utils.StatusBarCompat;
+import com.e_trans.virtualtourism.utils.statusbar.StatusBarFontHelper;
+import com.e_trans.virtualtourism.view.refreshview.utils.LogUtils;
 
 import java.util.HashMap;
 
@@ -43,10 +47,10 @@ public class MainActivity extends BaseActivity {
         mTabManager = new TabManager(this, mTabHost, R.id.realtabcontent);
 
 
-        mTabManager.addTab(mTabHost.newTabSpec(TAB1).setIndicator(createTabIndicatorView(R.layout.tab_following)), AerialVideoFragment.class, null);
-        mTabManager.addTab(mTabHost.newTabSpec(TAB2).setIndicator(createTabIndicatorView(R.layout.tab_main)), LawEnforcementListFragment.class, null);
-        mTabManager.addTab(mTabHost.newTabSpec(TAB3).setIndicator(createTabIndicatorView(R.layout.tab_video)), AerialVideoFragment.class, null);
-        mTabManager.addTab(mTabHost.newTabSpec(TAB4).setIndicator(createTabIndicatorView(R.layout.tab_mine)), AerialVideoFragment.class, null);
+        mTabManager.addTab(mTabHost.newTabSpec(TAB1).setIndicator(createTabIndicatorView(R.layout.tab_following)), RecommendFragment.class, null);
+        mTabManager.addTab(mTabHost.newTabSpec(TAB2).setIndicator(createTabIndicatorView(R.layout.tab_main)), AerialVideoFragment.class, null);
+        mTabManager.addTab(mTabHost.newTabSpec(TAB3).setIndicator(createTabIndicatorView(R.layout.tab_video)), SmoothMoveFragment.class, null);
+        mTabManager.addTab(mTabHost.newTabSpec(TAB4).setIndicator(createTabIndicatorView(R.layout.tab_mine)), MineFragment.class, null);
     }
     private View createTabIndicatorView(int layoutResource) {
         return inflater.inflate(layoutResource, null);
@@ -148,9 +152,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if (VideoViewManager.instance().getCurrentVideoPlayer() != null) {
-            VideoViewManager.instance().getCurrentVideoPlayer().pause();
-        }
     }
 
     @Override
@@ -160,16 +161,13 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        if (VideoViewManager.instance().getCurrentVideoPlayer() != null) {
-            VideoViewManager.instance().getCurrentVideoPlayer().resume();
-        }
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        VideoViewManager.instance().releaseVideoPlayer();
+
     }
 
 
@@ -177,7 +175,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (!VideoViewManager.instance().onBackPressed()) {
+
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
@@ -185,7 +183,7 @@ public class MainActivity extends BaseActivity {
                 finish();
                 android.os.Process.killProcess(android.os.Process.myPid());
             }
-        }
+
     }
 
     public TabHost getTabHost() {
@@ -196,7 +194,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LogUtils.e("横屏");
         } else {
+            StatusBarCompat.setStatusBarColor(this, 0xfffffff);
+            StatusBarFontHelper.setStatusBarMode(this, true);
         }
         super.onConfigurationChanged(newConfig);
     }

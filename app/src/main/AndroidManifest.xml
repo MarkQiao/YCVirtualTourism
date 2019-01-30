@@ -27,6 +27,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+
+
     <application
         android:name=".APP.MLApplication"
         android:allowBackup="true"
@@ -35,15 +38,68 @@
         android:roundIcon="@mipmap/ic_launchers"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name="com.amap.api.location.APSService" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="777aa6ee1a11f24cd27858585de718b1">
+            //开发者申请的key</meta-data>
         <activity
-            android:name=".MainActivity"
+            android:name=".WelcomeActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait">
+        </activity>
+        <!--屏幕框架适配-->
+        <meta-data
+            android:name="design_width"
+            android:value="1440" />
+        <meta-data
+            android:name="design_height"
+            android:value="2560" />
+        <activity
+            android:name=".ui.videoplayer.VerticalVideoActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.ScrollingActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.WebViewActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".RegisterActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.meijing.MeiJingActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ShowImgActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".RoadListActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TourismDetailActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|navigation"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

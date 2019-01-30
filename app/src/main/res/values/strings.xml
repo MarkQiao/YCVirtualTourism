@@ -4,13 +4,24 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="login_select_user">选择用户</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="hint_user">请输入用户名</string>
+    <string name="app_logo">应用程序logo</string>
+    <string name="btn_login">登录</string>
+    <string name="login_cancel">清空</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main_page">小视频</string>
     <string name="video">发现</string>
     <string name="following">推荐</string>
     <string name="mine">我的</string>
-
+    <string name="my_favorite">我的收藏</string>
+    <string name="feedback">帮助与反馈</string>
+    <string name="push_setting">推送设置</string>
+    <string name="current_version">当前版本</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="foot_mark">浏览足迹</string>
     <string name="xrefreshview_header_hint_normal">下拉刷新</string>
     <string name="xrefreshview_header_hint_ready">松开刷新数据</string>
     <string name="xrefreshview_header_hint_refreshing">正在刷新...</string>

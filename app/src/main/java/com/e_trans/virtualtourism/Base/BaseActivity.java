@@ -1,6 +1,7 @@
 package com.e_trans.virtualtourism.Base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +47,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
 
     }
-
+    /**
+     * 启动Activity
+     */
+    protected void startActivity(Class<?> clazz) {
+        Intent intent = new Intent(this, clazz);
+        startActivity(intent);
+    }
     @Override
     protected void onPause() {
         super.onPause();

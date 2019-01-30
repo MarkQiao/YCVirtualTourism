@@ -3,6 +3,8 @@ package com.e_trans.virtualtourism.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.e_trans.virtualtourism.APP.MLApplication;
+
 
 /**
  * 吐司工具类 为了避免内存泄漏 使用application的context
@@ -16,9 +18,9 @@ public class ToastUtil {
     private static long oneTime = 0;
     private static long twoTime = 0;
 
-    public static void showToast(Context mContext,String s) {
+    public static void showToast(String s) {
         if (toast == null) {
-            toast = Toast.makeText(mContext, s, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(MLApplication.appContext, s, Toast.LENGTH_SHORT);
             toast.show();
             oneTime = System.currentTimeMillis();
         } else {
@@ -37,7 +39,4 @@ public class ToastUtil {
     }
 
 
-    public static void showToast(Context mContext,int resId) {
-        showToast(mContext,resId+"");
-    }
 }
